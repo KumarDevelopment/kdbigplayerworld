@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_URI} !^public
+    RewriteCond %{HTTP:UPGRADE} ^WebSocket$ [NC,OR]
+    RewriteCond %{HTTP:CONNECTION} ^Upgrade$ [NC]
+    RewriteCond %{REQUEST_URI} !^/socket.io/ [NC]
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<IfModule mod_php7.c>
+    php_flag redis.extension /www/server/php/81/lib/php/extensions/no-debug-non-zts-20210902/redis.so
+</IfModule>
